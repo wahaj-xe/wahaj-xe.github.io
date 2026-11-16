@@ -277,7 +277,7 @@ function paintTile(kind, { colors, palettes, stack, wordmark }) {
     for (const d of MARK) g.fill(new Path2D(d));
     g.restore();
   } else if (kind === "stack") {
-    const list = stack ? [...stack.languages, ...stack.tools, ...stack.site].filter((item) => item.icon?.path) : [];
+    const list = stack ? [...(stack.languages || []), ...(stack.tools || []), ...(stack.site || [])].filter((item) => item?.icon?.path) : [];
     const seen = new Set();
     const icons = list.filter((item) => !seen.has(item.icon.slug) && seen.add(item.icon.slug)).slice(0, 18);
     const size = 13;

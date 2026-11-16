@@ -46,7 +46,8 @@
     "    Ok(())",
     "}",
     "```"
-   ]
+   ],
+   "images": []
   },
   {
    "repo": "protocols",
@@ -91,7 +92,8 @@
     "  isp: 'Nayatel (NTL AS24499)'",
     "});",
     "```"
-   ]
+   ],
+   "images": []
   },
   {
    "repo": "homelab-5node-cluster",
@@ -135,7 +137,8 @@
     "    - 182.180.0.8   # Nayatel primary",
     "    - 1.1.1.1       # Cloudflare DoH fallback",
     "```"
-   ]
+   ],
+   "images": []
   },
   {
    "repo": "RouteWatch",
@@ -166,7 +169,8 @@
     "- **Route-Leak Detection**: Real-time alerts when prefix origins or AS-paths diverge from expected routing policies.",
     "- **Microsecond Jitter Probing**: Continuous UDP/ICMP roundtrip probing to detect optical line degradation.",
     "- **Prometheus Exporter**: Exposes routing anomalies, packet loss, and latency histograms for Grafana dashboards."
-   ]
+   ],
+   "images": []
   },
   {
    "repo": "ai-agent-skills",
@@ -194,7 +198,8 @@
     "Collection of verified agent workflows, test harnesses, and code simplification engines.",
     "- **Systematic Verification**: Evidence-based test harness ensuring zero regression before commit.",
     "- **Adversarial Review**: Self-questioning workflows that stress-test architectures before implementation."
-   ]
+   ],
+   "images": []
   },
   {
    "repo": "nayatel-telecom-engineering",
@@ -225,21 +230,22 @@
     "- **GPON Optical Transport**: Huawei MA5600/MA5800 OLT infrastructure, optical splitters, and ONU provisioning.",
     "- **Optical Health Budgeting**: Loss margin calculations, laser degradation curves, and fiber splice testing.",
     "- **Routing & QoS**: Low-latency path optimization, BGP transit monitoring, and customer network stability."
-   ]
+   ],
+   "images": []
   }
  ],
  "about": {
-  "repo": "HANCORE-linux",
-  "url": "https://github.com/HANCORE-linux",
+  "repo": "wahaj-xe",
+  "url": "https://github.com/wahaj-xe",
   "lines": [
-   "# HANCORE-linux",
+   "# Abdul Wahaj",
    "",
-   "Mechanical engineer by trade, with a love for design and development. Curious about technology, full of ideas, and building for the Omarchy community.",
+   "25 yo self-driven developer, systems & network engineer at Nayatel (NTL AS24499), and homelab enthusiast.",
    "",
-   "[GitHub](https://github.com/HANCORE-linux)",
-   "[Discord](https://discord.com/users/816417588610334741)",
-   "[Ko-fi](https://ko-fi.com/hancore)",
-   "[buy-me-a-coffee](https://buymeacoffee.com/hancore)"
+   "[GitHub](https://github.com/wahaj-xe)",
+   "[LinkedIn](https://www.linkedin.com/in/wahaj7)",
+   "[Reddit](https://www.reddit.com/u/wahaj7)",
+   "[Discord](https://discord.com/users/769426732616384533)"
   ]
  },
  "palettes": [

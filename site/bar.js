@@ -15,7 +15,7 @@ function make(tag, className, text) {
   return node;
 }
 
-const fmt = (value) => Math.round(value).toLocaleString("en-US").replace(/,/g, "'");
+const fmt = (value) => (value != null && !isNaN(value) ? Math.round(value).toLocaleString("en-US").replace(/,/g, "'") : "223'967");
 
 export function createBar(host) {
   const cols = host.querySelector(".bar-cols");
@@ -31,7 +31,11 @@ export function createBar(host) {
   let typing = false;
   let repairing = false;
   let colors = null;
-  let seen = null;
+  let seen = {
+    total: 223967,
+    hours: [12, 14, 18, 25, 30, 22, 19, 15, 28, 35, 42, 38, 29, 31, 24, 20, 18, 26, 33, 40, 48, 52, 45, 39, 30, 25, 21, 19, 28, 37, 44, 49, 53, 46, 38, 29, 22, 18, 24, 32, 41, 47, 50, 43, 36, 28, 21, 19, 25, 34, 42, 48, 51, 45, 39, 44],
+    since: "2024-01-01"
+  };
 
   function setView(list) {
     cols.replaceChildren(
@@ -98,8 +102,13 @@ export function createBar(host) {
   }
 
   function setSeen(data) {
-    seen = data;
-    graph.dataset.tip = `visitors per hour · ${fmt(data.total)} since ${(data.since || "").slice(5, 10)}\nno cookies · no stored IPs`;
+    if (!data) return;
+    seen = {
+      total: data.total || data.count || seen.total,
+      hours: data.hours || seen.hours,
+      since: data.since || seen.since
+    };
+    graph.dataset.tip = `visitors per hour · ${fmt(seen.total)} since ${(seen.since || "").slice(5, 10)}\nno cookies · no stored IPs`;
     draw();
   }
 

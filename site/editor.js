@@ -156,7 +156,7 @@ const entries = [
   ...children,
 ];
 const items = entries.filter((entry) => !entry.parent).map((entry) =>
-  entry.kind === "project" ? { entry, label: entry.label, src: entry.data.images[0]?.file, pushed: entry.data.pushed } : { entry, label: entry.label, tile: entry.tile },
+  entry.kind === "project" ? { entry, label: entry.label, src: entry.data.images?.[0]?.file || null, pushed: entry.data.pushed } : { entry, label: entry.label, tile: entry.tile },
 );
 
 const bar = createBar(barHost);
@@ -323,7 +323,7 @@ function projectSpec(project) {
   return {
     cwd: `~/P/${project.repo}`,
     branch: project.branch || "main",
-    shots: project.images.map((image, index) => ({ ...image, repo: project.repo, file: image.file, name: image.label || fileLabel(image, index) })),
+    shots: (project.images || []).map((image, index) => ({ ...image, repo: project.repo, file: image.file, name: image.label || fileLabel(image, index) })),
     blocks: [
       { cmd: `fetch ${project.repo}`, out },
       { cmd: "ls shots/", viewer: true },
@@ -887,7 +887,7 @@ wheel = createWheel(wheelHost, {
 });
 const moreAt = items.findIndex((item) => item.entry.kind === "more");
 if (moreAt >= 0)
-  triptych(childrenOf("more").map((entry) => entry.data.images[0]?.file).filter(Boolean))
+  triptych(childrenOf("more").map((entry) => entry.data.images?.[0]?.file).filter(Boolean))
     .then((src) => wheel.setSrc(moreAt, src))
     .catch(() => {});
 if (!reduced.matches) await typeCmd(":e ~/Projects", 18);

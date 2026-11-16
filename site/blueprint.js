@@ -10,7 +10,7 @@ const ECHO = { ms: 1400, rise: 380, fresh: 450, start: 0.85 };
 const CYCLE = { hold: 7000, rest: 1400, back: 1.6 };
 const TEDDY = { chance: 0.35, at: 0.3, fall: 260, notice: 900, back: 32, pick: 420, home: 48 };
 const WALK = { every: 48000, leg: 3200, turn: 1200, fadeIn: 400, fadeOut: 250 };
-const ABOUT = ["father of three", "age 41"];
+const ABOUT = ["systems & networks", "age 25"];
 const RULE = { gap: 4, dx: 3 };
 const GLOW = { band: 0.2, ms: 2000, eyes: 0.43, touch: 2500, levels: 12, lift: 0.2, gain: 0.95, in: 300 };
 const TICK = { every: 1000, load: 24, size: 2.6 };
@@ -456,7 +456,7 @@ export function createBlueprint(host, { points = 0, from = "", to = "", owner = 
 
   function drawHeader(c) {
     const { ink } = colors;
-    text(c, "HC", d.x0, 18, 11, `rgba(${ink},0.95)`);
+    text(c, "AW", d.x0, 18, 11, `rgba(${ink},0.95)`);
     const title = `${fmt(N)} points · 1 per contribution`;
     const dated = from ? `${title} · ${from.slice(0, 4)}` : title;
     c.font = '10px "Plex Mono", ui-monospace, monospace';
