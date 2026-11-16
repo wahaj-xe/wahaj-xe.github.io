@@ -1,0 +1,82 @@
+{
+ "files": [
+  {
+   "repo": "onu-top",
+   "path": "src/telemetry/gpon.rs",
+   "sha": "8c4a9370f520bceff7659ea9738c27cf2a7b5a8b",
+   "lang": "rust",
+   "firstLine": 1,
+   "url": "https://github.com/wahaj-xe/onu-top/blob/main/src/telemetry/gpon.rs",
+   "lines": [
+    "// onu-top: live telemetry engine for Huawei GPON ONUs",
+    "// Abdul Wahaj (@wahaj-xe) - NTL AS24499",
+    "use tokio::net::TcpStream;",
+    "use ratatui::{backend::CrosstermBackend, Terminal};",
+    "use optical::gpon::{OmciClient, OpticalLevels, RxPower, TxPower};",
+    "",
+    "pub struct GponMonitor {",
+    "    pub ont_id: u32,",
+    "    pub rx_optical_dbm: f32,   // Target window: -15.0 to -24.0 dBm",
+    "    pub tx_optical_dbm: f32,",
+    "    pub laser_temp_c: f32,",
+    "    pub fec_uncorrected: u64,",
+    "    pub vlan_id: u16,",
+    "}",
+    "",
+    "impl GponMonitor {",
+    "    pub async fn poll_telemetry(&mut self) -> Result<OpticalLevels, NetworkError> {",
+    "        let frame = self.client.query_omci_me(0x010c).await?;",
+    "        self.rx_optical_dbm = frame.decode_rx_power();",
+    "        if self.rx_optical_dbm < -27.0 {",
+    "            println!(\"⚠️ High fiber attenuation on GPON loop: {:.2} dBm\", self.rx_optical_dbm);",
+    "        }",
+    "        Ok(frame.levels())",
+    "    }",
+    "}"
+   ]
+  },
+  {
+   "repo": "protocols",
+   "path": "src/engine/packet.ts",
+   "sha": "2fef30d8b9a67f5d1ba8991091e2c80487426076",
+   "lang": "typescript",
+   "firstLine": 1,
+   "url": "https://wahaj-xe.github.io/protocols/",
+   "lines": [
+    "// Protocols: Interactive packet-by-packet visualizer",
+    "export const NAYATEL_CONFIG = {",
+    "  isp: 'Nayatel (NTL AS24499)',",
+    "  subnet: '192.168.18.0/24',",
+    "  gateway: '192.168.18.1',",
+    "  dns: ['182.180.0.8', '182.180.0.9'],",
+    "  wifi_channels_5ghz: [157, 161],",
+    "  protocols_supported: 39,",
+    "};",
+    "",
+    "export function simulateHandshake(protocol: string) {",
+    "  console.log(`Decoding ${protocol} packet byte-by-byte for AS24499...`);",
+    "}"
+   ]
+  },
+  {
+   "repo": "homelab-5node",
+   "path": "cluster/network-topology.yaml",
+   "sha": "d0cb253c3380d079f661e1500b881642a89f7737",
+   "lang": "yaml",
+   "firstLine": 1,
+   "url": "https://www.reddit.com/u/wahaj7/",
+   "lines": [
+    "# 5-Node Bare-Metal Homelab Cluster",
+    "# Subreddit: r/homelab & r/PakistaniTech (@wahaj7)",
+    "cluster:",
+    "  nodes: 5",
+    "  hypervisor: 'Proxmox VE 8.x + Ubuntu LTS'",
+    "  storage: 'ZFS Mirror with NVMe tier'",
+    "  vpn_mesh: 'WireGuard Kernel Zero-Trust'",
+    "  routing_gateway:",
+    "    dns: 'Cloudflare DoH + Nayatel 182.180.0.8'",
+    "    features: ['ISP Restrictions Bypass', '4K HDR Transcoding']"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,51 @@
+// onu-top: live health & performance monitor for Huawei GPON ONUs
+// Author: Abdul Wahaj (@wahaj-xe) · Nayatel NTL AS24499
+use tokio::net::TcpStream;
+use ratatui::{backend::CrosstermBackend, Terminal};
+use optical::gpon::{OmciClient, OpticalLevels, RxPower, TxPower};
+
+pub struct GponMonitor {
+    pub ont_id: u32,
+    pub rx_optical_dbm: f32,   // Target optical window: -15.0 to -24.0 dBm
+    pub tx_optical_dbm: f32,
+    pub laser_temp_c: f32,
+    pub fec_uncorrected: u64,
+    pub vlan_id: u16,          // 192.168.18.0/24 subnet mapping
+}
+
+impl GponMonitor {
+    pub async fn poll_telemetry(&mut self) -> Result<OpticalLevels, NetworkError> {
+        let frame = self.client.query_omci_me(0x010c).await?;
+        self.rx_optical_dbm = frame.decode_rx_power();
+        if self.rx_optical_dbm < -27.0 {
+            println!("⚠️ High fiber attenuation on GPON loop: {:.2} dBm", self.rx_optical_dbm);
+        }
+        Ok(frame.levels())
+    }
+}
+
+// Protocols: Interactive packet-by-packet visualizer
+// URL: https://wahaj-xe.github.io/protocols/
+export const NAYATEL_CONFIG = {
+  isp: 'Nayatel (NTL AS24499)',
+  subnet: '192.168.18.0/24',
+  gateway: '192.168.18.1',
+  dns: ['182.180.0.8', '182.180.0.9'],
+  wifi_channels_5ghz: [157, 161],
+  protocols_supported: 39,
+};
+
+export function simulateHandshake(protocol: string) {
+  console.log(`Decoding ${protocol} packet byte-by-byte for AS24499...`);
+}
+
+// 5-Node Bare-Metal Homelab Cluster
+// Reddit: r/homelab & r/PakistaniTech (@wahaj7)
+cluster:
+  nodes: 5
+  hypervisor: 'Proxmox VE 8.x + Ubuntu Server LTS'
+  storage: 'ZFS Mirror with NVMe tier'
+  vpn_mesh: 'WireGuard Zero-Trust Kernel Mesh'
+  routing_gateway:
+    dns: 'Cloudflare DoH + Nayatel 182.180.0.8'
+    features: ['ISP Restrictions Bypass', '4K HDR Transcoding']
